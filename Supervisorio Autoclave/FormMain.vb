@@ -19,8 +19,10 @@ Public Class FormMain
     Dim subrotinaSTR As New meumetodo(AddressOf TratamentoSTR)
     Private Sub SerialPort1_DataReceived(sender As Object, e As IO.Ports.SerialDataReceivedEventArgs) Handles SerialPort1.DataReceived
         System.Threading.Thread.Sleep(500)
-        Dim string1 As String = SerialPort1.ReadExisting()
-        Invoke(subrotinaSTR, string1)
+        If SerialPort1.IsOpen() Then
+            Dim string1 As String = SerialPort1.ReadExisting()
+            Invoke(subrotinaSTR, string1)
+        End If
     End Sub
     Sub TratamentoSTR(ByVal meustring As String)
         RichTextBoxLog.AppendText(meustring)
@@ -168,6 +170,7 @@ Public Class FormMain
     End Sub
 
     Private Sub MenuSalvarLog_Click(sender As Object, e As EventArgs) Handles MenuSalvarLog.Click
+        If My.Settings.CaminhoLogs <> "" Then SaveFileDialog1.InitialDirectory = My.Settings.CaminhoLogs
         SaveFileDialog1.FileName = TextBoxTipo.Text & "-" & TextBoxCiclo.Text & ".txt"
         SaveFileDialog1.Filter = "Arquivo de texto (*.txt)|*.txt"
         If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
