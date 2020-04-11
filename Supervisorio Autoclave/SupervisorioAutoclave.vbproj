@@ -62,7 +62,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>23234DBFF95DD7995F578DDA3E87194A05D49BA5</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>9464E3179473004D6C3B9DAC25475C51E525A454</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>SupervisorioAutoclave_TemporaryKey.pfx</ManifestKeyFile>
@@ -159,6 +159,7 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="SupervisorioAutoclave_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
