@@ -40,13 +40,13 @@ Partial Class FormMain
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuSalvarLog = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.MenuLogs = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuRelatorios = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.MenuSair = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuConfig = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuAjuda = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuSobre = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MenuLogs = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MenuRelatorios = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -176,6 +176,23 @@ Partial Class FormMain
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(196, 6)
         '
+        'MenuLogs
+        '
+        Me.MenuLogs.Name = "MenuLogs"
+        Me.MenuLogs.Size = New System.Drawing.Size(199, 22)
+        Me.MenuLogs.Text = "Abrir pasta de logs"
+        '
+        'MenuRelatorios
+        '
+        Me.MenuRelatorios.Name = "MenuRelatorios"
+        Me.MenuRelatorios.Size = New System.Drawing.Size(199, 22)
+        Me.MenuRelatorios.Text = "Abrir pasta de relatórios"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(196, 6)
+        '
         'MenuSair
         '
         Me.MenuSair.Name = "MenuSair"
@@ -200,23 +217,6 @@ Partial Class FormMain
         Me.MenuSobre.Name = "MenuSobre"
         Me.MenuSobre.Size = New System.Drawing.Size(104, 22)
         Me.MenuSobre.Text = "Sobre"
-        '
-        'MenuLogs
-        '
-        Me.MenuLogs.Name = "MenuLogs"
-        Me.MenuLogs.Size = New System.Drawing.Size(199, 22)
-        Me.MenuLogs.Text = "Abrir pasta de logs"
-        '
-        'MenuRelatorios
-        '
-        Me.MenuRelatorios.Name = "MenuRelatorios"
-        Me.MenuRelatorios.Size = New System.Drawing.Size(199, 22)
-        Me.MenuRelatorios.Text = "Abrir pasta de relatórios"
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(196, 6)
         '
         'FormMain
         '

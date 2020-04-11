@@ -3,7 +3,7 @@ Imports System.Text
 
 Public Class FormMain
     Dim ComunicacaoOK As Boolean = False
-    Dim CICLO_OK As Boolean = False
+    Dim Ciclo As New clsCiclo
 
     Private Sub FormMain_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         If My.Settings.AutoConect Then
@@ -25,29 +25,29 @@ Public Class FormMain
         End If
     End Sub
     Sub TratamentoSTR(ByVal meustring As String)
+        If Not Ciclo.Iniciado Then
+            Ciclo.Iniciado = True
+        End If
         RichTextBoxLog.AppendText(meustring)
         RichTextBoxLog.ScrollToCaret()
         For Each linha In meustring.Split(vbLf) '(vbNewLine)
             If linha.Length >= 9 Then
-                If Not linha.Contains("FIM DE CICLO") And linha.Contains("CICLO") And Not CICLO_OK Then
+                If linha.Contains("CICLO") And Not linha.Contains("FIM") And Ciclo.Numero = "" Then
                     Dim i As Byte
                     Dim c As Char
-                    Dim sCiclo As String = ""
                     For i = 0 To linha.Length - 1
                         c = linha.Substring(i, 1)
                         If c >= "0" And c <= "9" Then
-                            sCiclo = sCiclo & c
+                            Ciclo.Numero = Ciclo.Numero & c
                         End If
                     Next
-                    If sCiclo = "" Then sCiclo = "0000"
-                    TextBoxCiclo.Text = sCiclo
-                    CICLO_OK = True
+                    If Ciclo.Numero = "" Then Ciclo.Numero = "0000"
+                    TextBoxCiclo.Text = Ciclo.Numero
                 End If
                 If linha.Contains("PROGRAMA") Then
                     Dim i As Byte
                     Dim c As Char
                     Dim sPrograma As String = ""
-                    Dim Programa As Integer
                     For i = 0 To linha.Length - 1
                         c = linha.Substring(i, 1)
                         If c >= "0" And c <= "9" Then
@@ -55,8 +55,8 @@ Public Class FormMain
                         End If
                     Next
                     If sPrograma = "" Then sPrograma = "0"
-                    Programa = Val(sPrograma)
-                    TextBoxTipo.Text = Programa
+                    Ciclo.Programa = Val(sPrograma)
+                    TextBoxTipo.Text = Ciclo.Programa
                 End If
                 If linha.Contains("OPERACAO") Then
                     Dim aOperacao = linha.TrimEnd.Split(" ")
@@ -64,18 +64,39 @@ Public Class FormMain
                     Dim Inicio = aOperacao.Last
                     TextBoxOperacao.Text = Operacao
                     TextBoxInicio.Text = Inicio
+                    Select Case Operacao
+                        Case "1"
+                            Ciclo.Operacao(1).Inicio = Inicio
+                        Case "2"
+                            Ciclo.Operacao(1).Fim = Inicio
+                            Ciclo.Operacao(2).Inicio = Inicio
+                        Case "3"
+                            Ciclo.Operacao(2).Fim = Inicio
+                            Ciclo.Operacao(3).Inicio = Inicio
+                        Case "4"
+                            Ciclo.Operacao(3).Fim = Inicio
+                            Ciclo.Operacao(4).Inicio = Inicio
+                    End Select
                 End If
                 If linha.Contains("FIM DE CICLO") Then
+                    Dim aFim = linha.TrimEnd.Split(" ")
+                    Ciclo.Operacao(4).Fim = aFim.Last
+                End If
+                If linha.Contains("OPER.") Then
+                    If Directory.Exists(My.Settings.CaminhoRelatorios) Then
+                        Dim FileName As String = "PROGRAMA " & Ciclo.Programa & ".txt"
+                        SaveRelatorio(My.Settings.CaminhoRelatorios & "\" & FileName)
+                    End If
                     If Directory.Exists(My.Settings.CaminhoLogs) Then
-                        Dim FileName As String = TextBoxTipo.Text & "-" & TextBoxCiclo.Text & ".txt"
-                        SaveFile(My.Settings.CaminhoLogs & "\" & FileName)
-                        TextBoxResultado.Text = "Arquivo " & FileName & " gerado com sucesso"
+                        Dim FileName As String = Ciclo.Programa & "-" & Ciclo.Numero & ".txt"
+                        SaveLog(My.Settings.CaminhoLogs & "\" & FileName)
+                        TextBoxResultado.Text = "Arquivo " & FileName & " salvo com sucesso"
                         RichTextBoxLog.Text = ""
                         TextBoxCiclo.Text = ""
                         TextBoxOperacao.Text = ""
                         TextBoxTipo.Text = ""
                         TextBoxInicio.Text = ""
-                        CICLO_OK = False
+                        Ciclo.Resetar()
                     Else
                         MessageBox.Show("Pasta de Logs não existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         TextBoxResultado.Text = "Erro ao gerar o arquivo"
@@ -175,11 +196,14 @@ Public Class FormMain
         SaveFileDialog1.Filter = "Arquivo de texto (*.txt)|*.txt"
         If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
             Dim SelectedFile As String = SaveFileDialog1.FileName
-            SaveFile(SelectedFile)
+            SaveLog(SelectedFile)
+            TextBoxResultado.Text = "Arquivo " & SelectedFile & " salvo com sucesso"
+            Dim FileName As String = "PROGRAMA " & Ciclo.Programa & ".txt"
+            SaveRelatorio(My.Settings.CaminhoRelatorios & "\" & FileName)
         End If
     End Sub
 
-    Private Sub SaveFile(ByVal FilePath As String)
+    Private Sub SaveLog(ByVal FilePath As String)
         Dim fs As StreamWriter = File.CreateText(FilePath)
         Dim linha_log As String
         For Each linha_log In RichTextBoxLog.Text.Split(vbLf)
@@ -187,4 +211,60 @@ Public Class FormMain
         Next
         fs.Close()
     End Sub
+
+    Private Sub SaveRelatorio(ByVal FilePath As String)
+        Dim Texto As String
+        If Not File.Exists(FilePath) Then
+            Dim CreateFile As StreamWriter = File.CreateText(FilePath)
+            Texto = "CICLO"
+            For i = 1 To 4
+                Texto = Texto & vbTab & "OPERAÇÃO " & i
+            Next
+            Texto = Texto & vbTab & "FIM" & vbCrLf
+            CreateFile.Write(Texto)
+            CreateFile.Close()
+        End If
+        Dim AppendFile As StreamWriter = File.AppendText(FilePath)
+        Texto = Ciclo.Numero
+        For i = 1 To 4
+            Texto = Texto & vbTab & Ciclo.Operacao(i).Inicio
+        Next
+        Texto = Texto & vbTab & Ciclo.Operacao(4).Fim & vbCrLf
+        AppendFile.Write(Texto)
+        AppendFile.Close()
+    End Sub
+
+    Public Structure sOperacao
+        Dim Tipo As Integer
+        Dim Inicio As String
+        Dim Fim As String
+    End Structure
+
+    Public Class clsCiclo
+        Public Iniciado As Boolean
+        Public Numero As String
+        Public Programa As Integer
+        Public Operacao(4) As sOperacao
+        Public Sub New()
+            Resetar()
+        End Sub
+        Public Sub Resetar()
+            Iniciado = False
+            Numero = ""
+            Programa = 0
+            For i = 1 To 4
+                Operacao(i).Inicio = "00:00:00"
+                Operacao(i).Fim = "00:00:00"
+            Next
+        End Sub
+    End Class
+
+#If DEBUG Then
+    Private Sub TextBoxCiclo_TextChanged(sender As Object, e As EventArgs) Handles TextBoxCiclo.TextChanged
+        Ciclo.Numero = TextBoxCiclo.Text
+    End Sub
+    Private Sub TextBoxTipo_TextChanged(sender As Object, e As EventArgs) Handles TextBoxTipo.TextChanged
+        Ciclo.Programa = Val(TextBoxTipo.Text)
+    End Sub
+#End If
 End Class
