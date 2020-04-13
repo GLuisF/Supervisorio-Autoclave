@@ -66,7 +66,7 @@ Public Class Setups
             My.Settings.PortaCOM = ComboBoxPortas.Text
             My.Settings.AutoConect = CheckBoxAutoConect.Checked
             My.Settings.Save()
-            'SalvarConfig()
+            FormMain.StatusPort.Text = My.Settings.PortaCOM
             Me.Close()
         Else
             MessageBox.Show("Verifique os caminhos das pastas", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error)

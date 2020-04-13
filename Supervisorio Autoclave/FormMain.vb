@@ -6,6 +6,9 @@ Public Class FormMain
     Dim Ciclo As New clsCiclo
 
     Private Sub FormMain_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        'StatusResultado.Text = ""
+        StatusPort.Text = My.Settings.PortaCOM
+        StatusPort.Image = My.Resources.Disconnected
         If My.Settings.AutoConect Then
             LigarComunicacao()
         End If
@@ -90,24 +93,21 @@ Public Class FormMain
                     If Directory.Exists(My.Settings.CaminhoLogs) Then
                         Dim FileName As String = Ciclo.Programa & "-" & Ciclo.Numero & ".txt"
                         SaveLog(My.Settings.CaminhoLogs & "\" & FileName)
-                        TextBoxResultado.Text = "Arquivo " & FileName & " salvo com sucesso"
-                        RichTextBoxLog.Text = ""
-                        TextBoxCiclo.Text = ""
-                        TextBoxOperacao.Text = ""
-                        TextBoxTipo.Text = ""
-                        TextBoxInicio.Text = ""
+                        StatusResultado.Text = "Arquivo " & FileName & " salvo com sucesso"
+                        LimparForm()
                         Ciclo.Resetar()
                     Else
                         MessageBox.Show("Pasta de Logs não existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        TextBoxResultado.Text = "Erro ao gerar o arquivo"
+                        StatusResultado.Text = "Erro ao gerar o arquivo"
                     End If
                 End If
             End If
         Next
     End Sub
 
-    Private Sub ButtonOnOff_Click(sender As Object, e As EventArgs) Handles ButtonOnOff.Click
-        If ButtonOnOff.Text = "Ligar" Then
+    Dim Ligado As Boolean = False
+    Private Sub ButtonLigaDesliga_Click(sender As Object, e As EventArgs) Handles ButtonLigaDesliga.Click
+        If Not ComunicacaoOK Then
             LigarComunicacao()
         Else
             DesligarComunicacao()
@@ -125,20 +125,26 @@ Public Class FormMain
             MessageBox.Show("Erro ao tentar abrir a porta " & My.Settings.PortaCOM, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
         If Ligar Then
-            ButtonOnOff.Text = "Desligar"
+            ButtonLigaDesliga.BackgroundImage = My.Resources.Ligado
+            LabelLigaDesliga.Text = "Ligado"
             ComunicacaoOK = True
-            TextBoxResultado.Text = "Porta " & My.Settings.PortaCOM & " aberta com sucesso"
+            StatusResultado.Text = "Porta " & My.Settings.PortaCOM & " conectada com sucesso"
+            StatusPort.Image = My.Resources.Connected
+
         Else
-            ButtonOnOff.Text = "Ligar"
+            ButtonLigaDesliga.BackgroundImage = My.Resources.Desligado
+            LabelLigaDesliga.Text = "Desligado"
             ComunicacaoOK = False
         End If
     End Sub
 
     Private Sub DesligarComunicacao()
+        ButtonLigaDesliga.BackgroundImage = My.Resources.Desligado
+        LabelLigaDesliga.Text = "Desligado"
         ComunicacaoOK = False
         ClosePort()
-        ButtonOnOff.Text = "Ligar"
-        TextBoxResultado.Text = ""
+        StatusResultado.Text = "Porta " & My.Settings.PortaCOM & " desconectada"
+        StatusPort.Image = My.Resources.Disconnected
     End Sub
 
     Private Function OpenPort() As Boolean
@@ -197,7 +203,7 @@ Public Class FormMain
         If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
             Dim SelectedFile As String = SaveFileDialog1.FileName
             SaveLog(SelectedFile)
-            TextBoxResultado.Text = "Arquivo " & SelectedFile & " salvo com sucesso"
+            StatusResultado.Text = "Arquivo " & SelectedFile & " salvo com sucesso"
             Dim FileName As String = "PROGRAMA " & Ciclo.Programa & ".txt"
             SaveRelatorio(My.Settings.CaminhoRelatorios & "\" & FileName)
         End If
@@ -267,4 +273,18 @@ Public Class FormMain
         Ciclo.Programa = Val(TextBoxTipo.Text)
     End Sub
 #End If
+
+    Private Sub LimparForm()
+        RichTextBoxLog.Text = ""
+        TextBoxCiclo.Text = ""
+        TextBoxOperacao.Text = ""
+        TextBoxTipo.Text = ""
+        TextBoxInicio.Text = ""
+    End Sub
+
+    Private Sub ButtonLimpar_Click(sender As Object, e As EventArgs) Handles ButtonLimpar.Click
+        LimparForm()
+        Ciclo.Resetar()
+    End Sub
+
 End Class
