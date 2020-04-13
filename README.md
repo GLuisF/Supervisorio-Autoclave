@@ -1,6 +1,6 @@
 # Supervisorio-Autoclave
 
-[![Download](https://github.com/GLuisF/Supervisorio-Autoclave/blob/master/Imagens/DownloadButton.png?raw=true)](https://sourceforge.net/p/supervisorio-autoclave)
+[![Download Supervisorio Autoclave](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/supervisorio-autoclave/files/latest/download)
 
 Tela principal
 
