@@ -87,11 +87,17 @@ Public Class Setups
     End Function
 
     Private Sub ButtonSelLogs_Click(sender As Object, e As EventArgs) Handles ButtonSelLogs.Click
-        TextBoxLogs.Text = SelectFolder()
+        Dim Pasta As String = SelectFolder()
+        If Pasta <> "" Then
+            TextBoxLogs.Text = SelectFolder()
+        End If
     End Sub
 
     Private Sub ButtonSelRelatorios_Click(sender As Object, e As EventArgs) Handles ButtonSelRelatorios.Click
-        TextBoxRelatorios.Text = SelectFolder()
+        Dim Pasta As String = SelectFolder()
+        If Pasta <> "" Then
+            TextBoxRelatorios.Text = SelectFolder()
+        End If
     End Sub
 
 End Class

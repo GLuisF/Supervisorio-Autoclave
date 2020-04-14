@@ -76,6 +76,7 @@ Partial Class Setups
         '
         'ButtonCancelar
         '
+        Me.ButtonCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.ButtonCancelar.Location = New System.Drawing.Point(546, 129)
         Me.ButtonCancelar.Name = "ButtonCancelar"
         Me.ButtonCancelar.Size = New System.Drawing.Size(62, 23)
@@ -141,9 +142,11 @@ Partial Class Setups
         '
         'Setups
         '
+        Me.AcceptButton = Me.ButtonOK
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(617, 160)
+        Me.CancelButton = Me.ButtonCancelar
+        Me.ClientSize = New System.Drawing.Size(624, 162)
         Me.Controls.Add(Me.CheckBoxAutoConect)
         Me.Controls.Add(Me.ComboBoxPortas)
         Me.Controls.Add(Me.Label3)
@@ -155,10 +158,16 @@ Partial Class Setups
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ButtonSelLogs)
         Me.Controls.Add(Me.TextBoxLogs)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "Setups"
+        Me.ShowInTaskbar = False
+        Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Configurações"
+        Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
