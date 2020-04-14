@@ -49,10 +49,10 @@ Partial Class FormMain
         Me.ButtonLimpar = New System.Windows.Forms.Button()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.StatusResultado = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.StatusPort = New System.Windows.Forms.ToolStripStatusLabel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.LabelLigaDesliga = New System.Windows.Forms.Label()
         Me.ButtonLigaDesliga = New System.Windows.Forms.Button()
+        Me.StatusPort = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -67,7 +67,7 @@ Partial Class FormMain
         Me.RichTextBoxLog.Location = New System.Drawing.Point(5, 28)
         Me.RichTextBoxLog.Name = "RichTextBoxLog"
         Me.RichTextBoxLog.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical
-        Me.RichTextBoxLog.Size = New System.Drawing.Size(312, 256)
+        Me.RichTextBoxLog.Size = New System.Drawing.Size(291, 256)
         Me.RichTextBoxLog.TabIndex = 0
         Me.RichTextBoxLog.Text = ""
         '
@@ -76,23 +76,23 @@ Partial Class FormMain
         '
         'TextBoxCiclo
         '
-        Me.TextBoxCiclo.Location = New System.Drawing.Point(76, 43)
+        Me.TextBoxCiclo.Location = New System.Drawing.Point(62, 43)
         Me.TextBoxCiclo.Name = "TextBoxCiclo"
         Me.TextBoxCiclo.Size = New System.Drawing.Size(50, 20)
         Me.TextBoxCiclo.TabIndex = 1
         '
         'Label1
         '
-        Me.Label1.Location = New System.Drawing.Point(16, 46)
+        Me.Label1.Location = New System.Drawing.Point(3, 46)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(54, 13)
         Me.Label1.TabIndex = 2
-        Me.Label1.Text = "Ciclo Nº"
+        Me.Label1.Text = "Ciclo"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label2
         '
-        Me.Label2.Location = New System.Drawing.Point(16, 73)
+        Me.Label2.Location = New System.Drawing.Point(3, 73)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(54, 13)
         Me.Label2.TabIndex = 3
@@ -101,21 +101,21 @@ Partial Class FormMain
         '
         'TextBoxTipo
         '
-        Me.TextBoxTipo.Location = New System.Drawing.Point(76, 70)
+        Me.TextBoxTipo.Location = New System.Drawing.Point(62, 70)
         Me.TextBoxTipo.Name = "TextBoxTipo"
         Me.TextBoxTipo.Size = New System.Drawing.Size(50, 20)
         Me.TextBoxTipo.TabIndex = 2
         '
         'TextBoxOperacao
         '
-        Me.TextBoxOperacao.Location = New System.Drawing.Point(76, 97)
+        Me.TextBoxOperacao.Location = New System.Drawing.Point(62, 97)
         Me.TextBoxOperacao.Name = "TextBoxOperacao"
         Me.TextBoxOperacao.Size = New System.Drawing.Size(50, 20)
         Me.TextBoxOperacao.TabIndex = 3
         '
         'Label5
         '
-        Me.Label5.Location = New System.Drawing.Point(16, 100)
+        Me.Label5.Location = New System.Drawing.Point(3, 100)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(54, 13)
         Me.Label5.TabIndex = 13
@@ -124,7 +124,7 @@ Partial Class FormMain
         '
         'Label6
         '
-        Me.Label6.Location = New System.Drawing.Point(16, 127)
+        Me.Label6.Location = New System.Drawing.Point(3, 127)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(54, 13)
         Me.Label6.TabIndex = 15
@@ -133,7 +133,7 @@ Partial Class FormMain
         '
         'TextBoxInicio
         '
-        Me.TextBoxInicio.Location = New System.Drawing.Point(76, 124)
+        Me.TextBoxInicio.Location = New System.Drawing.Point(62, 124)
         Me.TextBoxInicio.Name = "TextBoxInicio"
         Me.TextBoxInicio.Size = New System.Drawing.Size(50, 20)
         Me.TextBoxInicio.TabIndex = 4
@@ -143,7 +143,7 @@ Partial Class FormMain
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.MenuConfig, Me.MenuAjuda})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(458, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(422, 24)
         Me.MenuStrip1.TabIndex = 6
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -209,7 +209,7 @@ Partial Class FormMain
         '
         'ButtonLimpar
         '
-        Me.ButtonLimpar.Location = New System.Drawing.Point(76, 150)
+        Me.ButtonLimpar.Location = New System.Drawing.Point(62, 150)
         Me.ButtonLimpar.Name = "ButtonLimpar"
         Me.ButtonLimpar.Size = New System.Drawing.Size(50, 23)
         Me.ButtonLimpar.TabIndex = 16
@@ -221,24 +221,16 @@ Partial Class FormMain
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusResultado, Me.StatusPort})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 287)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(458, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(422, 22)
         Me.StatusStrip1.TabIndex = 17
         Me.StatusStrip1.Text = "StatusStrip1"
         '
         'StatusResultado
         '
         Me.StatusResultado.Name = "StatusResultado"
-        Me.StatusResultado.Size = New System.Drawing.Size(385, 17)
+        Me.StatusResultado.Size = New System.Drawing.Size(349, 17)
         Me.StatusResultado.Spring = True
         Me.StatusResultado.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'StatusPort
-        '
-        Me.StatusPort.Image = CType(resources.GetObject("StatusPort.Image"), System.Drawing.Image)
-        Me.StatusPort.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.StatusPort.Name = "StatusPort"
-        Me.StatusPort.Size = New System.Drawing.Size(58, 17)
-        Me.StatusPort.Text = "COM#"
         '
         'Panel1
         '
@@ -254,15 +246,15 @@ Partial Class FormMain
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.TextBoxCiclo)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel1.Location = New System.Drawing.Point(323, 24)
+        Me.Panel1.Location = New System.Drawing.Point(299, 24)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(135, 263)
+        Me.Panel1.Size = New System.Drawing.Size(123, 263)
         Me.Panel1.TabIndex = 18
         '
         'LabelLigaDesliga
         '
         Me.LabelLigaDesliga.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LabelLigaDesliga.Location = New System.Drawing.Point(16, 19)
+        Me.LabelLigaDesliga.Location = New System.Drawing.Point(3, 19)
         Me.LabelLigaDesliga.Name = "LabelLigaDesliga"
         Me.LabelLigaDesliga.Size = New System.Drawing.Size(54, 13)
         Me.LabelLigaDesliga.TabIndex = 18
@@ -275,17 +267,25 @@ Partial Class FormMain
         Me.ButtonLigaDesliga.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.ButtonLigaDesliga.FlatAppearance.BorderSize = 0
         Me.ButtonLigaDesliga.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ButtonLigaDesliga.Location = New System.Drawing.Point(76, 13)
+        Me.ButtonLigaDesliga.Location = New System.Drawing.Point(62, 13)
         Me.ButtonLigaDesliga.Name = "ButtonLigaDesliga"
         Me.ButtonLigaDesliga.Size = New System.Drawing.Size(46, 25)
         Me.ButtonLigaDesliga.TabIndex = 17
         Me.ButtonLigaDesliga.UseVisualStyleBackColor = False
         '
+        'StatusPort
+        '
+        Me.StatusPort.Image = CType(resources.GetObject("StatusPort.Image"), System.Drawing.Image)
+        Me.StatusPort.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.StatusPort.Name = "StatusPort"
+        Me.StatusPort.Size = New System.Drawing.Size(58, 16)
+        Me.StatusPort.Text = "COM#"
+        '
         'FormMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(458, 309)
+        Me.ClientSize = New System.Drawing.Size(422, 309)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.RichTextBoxLog)

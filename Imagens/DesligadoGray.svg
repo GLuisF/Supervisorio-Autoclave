@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 24 24"
+   fill="black"
+   width="48px"
+   height="48px"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="DesligadoGray.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <metadata
+     id="metadata12">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="746"
+     id="namedview8"
+     showgrid="false"
+     inkscape:zoom="11.313709"
+     inkscape:cx="22.96957"
+     inkscape:cy="27.785701"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg6" />
+  <path
+     d="M0 0h24v24H0z"
+     fill="none"
+     id="path4" />
+  <path
+     d="M 8.1559747,6.2056727 H 18.504663 c 2.856238,0 5.174344,2.3703514 5.174344,5.2909633 0,2.920611 -2.318106,5.290962 -5.174344,5.290962 H 8.1559747 c -2.856238,0 -5.174343,-2.370351 -5.174343,-5.290962 0,-2.9206119 2.318105,-5.2909633 5.174343,-5.2909633 z"
+     id="path2"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="sssssss"
+     style="fill:#808080;stroke-width:1"
+     inkscape:export-filename="C:\Users\User\Desktop\Desligado.png" />
+  <path
+     style="fill:#f0f0f0;fill-opacity:1"
+     sodipodi:nodetypes="ssccs"
+     inkscape:connector-curvature="0"
+     inkscape:export-ydpi="90"
+     inkscape:export-xdpi="90"
+     id="path44"
+     d="M 8.3303187,6.4966359 H 18.330319 c 2.76,0 5,2.24 5,5.0000001 H 3.3303187 c 0,-2.7600001 2.24,-5.0000001 5,-5.0000001 z"
+     inkscape:export-filename="C:\Users\User\Desktop\Desligado.png" />
+  <path
+     d="M 8.3303187,16.496636 H 18.330319 c 2.76,0 5,-2.24 5,-5 H 3.3303187 c 0,2.76 2.24,5 5,5 z"
+     id="path851"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="ssccs"
+     style="fill:#d4d4d4;fill-opacity:1"
+     inkscape:transform-center-y="2.5168203"
+     inkscape:export-filename="C:\Users\User\Desktop\Desligado.png" />
+  <path
+     style="opacity:1;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.18897638;stroke-linecap:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     d="m 8.8880937,14.426858 c 0.661892,-0.140387 1.1605273,-0.420414 1.6245973,-0.912352 0.300131,-0.318155 0.496713,-0.648859 0.64518,-1.085365 0.10291,-0.302566 0.117938,-0.3974 0.131609,-0.830518 0.01307,-0.413942 0.0038,-0.535287 -0.06082,-0.791001 C 10.846661,9.2945834 9.3841167,8.3046969 7.8890757,8.5473099 c -1.001964,0.162597 -1.820453,0.778926 -2.257226,1.6997081 -0.212628,0.448253 -0.277574,0.786228 -0.259729,1.351605 0.01367,0.433118 0.0287,0.527952 0.13161,0.830518 0.151227,0.444621 0.34807,0.771909 0.664923,1.105556 0.400695,0.421932 0.883905,0.710954 1.42508,0.852382 0.315457,0.08244 0.994798,0.103318 1.294365,0.03978 z"
+     id="path31"
+     inkscape:connector-curvature="0"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90"
+     inkscape:export-filename="C:\Users\User\Desktop\Desligado.png" />
+</svg>
