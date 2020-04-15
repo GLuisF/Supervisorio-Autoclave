@@ -1,0 +1,6 @@
+{
+    "board": "arduino:avr:uno",
+    "port": "COM3",
+    "programmer": "AVRISP mkII",
+    "sketch": "Simulador_Autoclave.ino"
+}

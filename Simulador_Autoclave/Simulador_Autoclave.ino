@@ -7,7 +7,6 @@ void setup() {
   randomSeed(analogRead(0));
 }
 
-
 void loop()
 {
   i = EEPROM.read(0);
