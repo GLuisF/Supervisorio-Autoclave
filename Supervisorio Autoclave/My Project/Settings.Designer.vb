@@ -101,6 +101,18 @@ Namespace My
                 Me("AutoConect") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property LimparAoIniciar() As Boolean
+            Get
+                Return CType(Me("LimparAoIniciar"),Boolean)
+            End Get
+            Set
+                Me("LimparAoIniciar") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

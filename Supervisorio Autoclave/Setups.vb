@@ -11,6 +11,8 @@ Public Class Setups
         TextBoxRelatorios.Text = My.Settings.CaminhoRelatorios
         ComboBoxPortas.Text = My.Settings.PortaCOM
         CheckBoxAutoConect.Checked = My.Settings.AutoConect
+        RadioButtonInicio.Checked = My.Settings.LimparAoIniciar
+        RadioButtonFim.Checked = Not My.Settings.LimparAoIniciar
         If My.Settings.CaminhoLogs = "" Or Not Directory.Exists(My.Settings.CaminhoLogs) Then
             TextBoxLogs.BackColor = Color.LightPink
         End If
@@ -65,6 +67,7 @@ Public Class Setups
             My.Settings.CaminhoRelatorios = TextBoxRelatorios.Text
             My.Settings.PortaCOM = ComboBoxPortas.Text
             My.Settings.AutoConect = CheckBoxAutoConect.Checked
+            My.Settings.LimparAoIniciar = RadioButtonInicio.Checked
             My.Settings.Save()
             FormMain.StatusPort.Text = My.Settings.PortaCOM
             Me.Close()
@@ -89,14 +92,14 @@ Public Class Setups
     Private Sub ButtonSelLogs_Click(sender As Object, e As EventArgs) Handles ButtonSelLogs.Click
         Dim Pasta As String = SelectFolder()
         If Pasta <> "" Then
-            TextBoxLogs.Text = SelectFolder()
+            TextBoxLogs.Text = Pasta
         End If
     End Sub
 
     Private Sub ButtonSelRelatorios_Click(sender As Object, e As EventArgs) Handles ButtonSelRelatorios.Click
         Dim Pasta As String = SelectFolder()
         If Pasta <> "" Then
-            TextBoxRelatorios.Text = SelectFolder()
+            TextBoxRelatorios.Text = Pasta
         End If
     End Sub
 

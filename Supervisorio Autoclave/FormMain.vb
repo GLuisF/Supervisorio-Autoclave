@@ -30,6 +30,7 @@ Public Class FormMain
     Sub TratamentoSTR(ByVal meustring As String)
         If Not Ciclo.Iniciado Then
             Ciclo.Iniciado = True
+            If My.Settings.LimparAoIniciar Then LimparForm()
         End If
         RichTextBoxLog.AppendText(meustring)
         RichTextBoxLog.ScrollToCaret()
@@ -94,7 +95,7 @@ Public Class FormMain
                         Dim FileName As String = Ciclo.Programa & "-" & Ciclo.Numero & ".txt"
                         SaveLog(My.Settings.CaminhoLogs & "\" & FileName)
                         StatusResultado.Text = "Arquivo " & FileName & " salvo com sucesso"
-                        LimparForm()
+                        If My.Settings.LimparAoIniciar = False Then LimparForm()
                         Ciclo.Resetar()
                     Else
                         MessageBox.Show("Pasta de Logs não existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -178,7 +179,7 @@ Public Class FormMain
 
     Private Sub MenuSobre_Click(sender As Object, e As EventArgs) Handles MenuSobre.Click
         MessageBox.Show("Supervisório Autoclave v" & My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor _
-                        & vbNewLine & "Desenvolvido por André e Giovani", "Supervisorio Autoclave")
+                        & "." & My.Application.Info.Version.Build & vbNewLine & "Desenvolvido por André e Giovani", "Supervisorio Autoclave")
     End Sub
 
     Private Function VerificarCaminhos() As Boolean

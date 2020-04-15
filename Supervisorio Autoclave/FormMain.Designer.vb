@@ -53,6 +53,7 @@ Partial Class FormMain
         Me.LabelLigaDesliga = New System.Windows.Forms.Label()
         Me.ButtonLigaDesliga = New System.Windows.Forms.Button()
         Me.StatusPort = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -67,7 +68,7 @@ Partial Class FormMain
         Me.RichTextBoxLog.Location = New System.Drawing.Point(5, 28)
         Me.RichTextBoxLog.Name = "RichTextBoxLog"
         Me.RichTextBoxLog.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical
-        Me.RichTextBoxLog.Size = New System.Drawing.Size(291, 256)
+        Me.RichTextBoxLog.Size = New System.Drawing.Size(309, 292)
         Me.RichTextBoxLog.TabIndex = 0
         Me.RichTextBoxLog.Text = ""
         '
@@ -80,6 +81,7 @@ Partial Class FormMain
         Me.TextBoxCiclo.Name = "TextBoxCiclo"
         Me.TextBoxCiclo.Size = New System.Drawing.Size(50, 20)
         Me.TextBoxCiclo.TabIndex = 1
+        Me.ToolTip1.SetToolTip(Me.TextBoxCiclo, "Número do ciclo atual")
         '
         'Label1
         '
@@ -105,6 +107,7 @@ Partial Class FormMain
         Me.TextBoxTipo.Name = "TextBoxTipo"
         Me.TextBoxTipo.Size = New System.Drawing.Size(50, 20)
         Me.TextBoxTipo.TabIndex = 2
+        Me.ToolTip1.SetToolTip(Me.TextBoxTipo, "Tipo de programa")
         '
         'TextBoxOperacao
         '
@@ -112,6 +115,7 @@ Partial Class FormMain
         Me.TextBoxOperacao.Name = "TextBoxOperacao"
         Me.TextBoxOperacao.Size = New System.Drawing.Size(50, 20)
         Me.TextBoxOperacao.TabIndex = 3
+        Me.ToolTip1.SetToolTip(Me.TextBoxOperacao, "Número da operação atual")
         '
         'Label5
         '
@@ -137,13 +141,14 @@ Partial Class FormMain
         Me.TextBoxInicio.Name = "TextBoxInicio"
         Me.TextBoxInicio.Size = New System.Drawing.Size(50, 20)
         Me.TextBoxInicio.TabIndex = 4
+        Me.ToolTip1.SetToolTip(Me.TextBoxInicio, "Horário de início da operação atual")
         '
         'MenuStrip1
         '
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.MenuConfig, Me.MenuAjuda})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(422, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(440, 24)
         Me.MenuStrip1.TabIndex = 6
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -214,14 +219,15 @@ Partial Class FormMain
         Me.ButtonLimpar.Size = New System.Drawing.Size(50, 23)
         Me.ButtonLimpar.TabIndex = 16
         Me.ButtonLimpar.Text = "Limpar"
+        Me.ToolTip1.SetToolTip(Me.ButtonLimpar, "Limpar dados recebidos")
         Me.ButtonLimpar.UseVisualStyleBackColor = True
         '
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusResultado, Me.StatusPort})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 287)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 323)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(422, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(440, 22)
         Me.StatusStrip1.TabIndex = 17
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -246,9 +252,9 @@ Partial Class FormMain
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.TextBoxCiclo)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel1.Location = New System.Drawing.Point(299, 24)
+        Me.Panel1.Location = New System.Drawing.Point(317, 24)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(123, 263)
+        Me.Panel1.Size = New System.Drawing.Size(123, 299)
         Me.Panel1.TabIndex = 18
         '
         'LabelLigaDesliga
@@ -271,6 +277,7 @@ Partial Class FormMain
         Me.ButtonLigaDesliga.Name = "ButtonLigaDesliga"
         Me.ButtonLigaDesliga.Size = New System.Drawing.Size(46, 25)
         Me.ButtonLigaDesliga.TabIndex = 17
+        Me.ToolTip1.SetToolTip(Me.ButtonLigaDesliga, "Liga/desliga recepcção de dados")
         Me.ButtonLigaDesliga.UseVisualStyleBackColor = False
         '
         'StatusPort
@@ -278,14 +285,14 @@ Partial Class FormMain
         Me.StatusPort.Image = CType(resources.GetObject("StatusPort.Image"), System.Drawing.Image)
         Me.StatusPort.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.StatusPort.Name = "StatusPort"
-        Me.StatusPort.Size = New System.Drawing.Size(58, 16)
+        Me.StatusPort.Size = New System.Drawing.Size(58, 17)
         Me.StatusPort.Text = "COM#"
         '
         'FormMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(422, 309)
+        Me.ClientSize = New System.Drawing.Size(440, 345)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.RichTextBoxLog)
@@ -334,5 +341,6 @@ Partial Class FormMain
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents ButtonLigaDesliga As System.Windows.Forms.Button
     Friend WithEvents LabelLigaDesliga As System.Windows.Forms.Label
+    Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
 
 End Class
