@@ -1,0 +1,10 @@
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                                                             *
+*         FRASEL Supervisorio Autoclave v1.2.1                *
+*                                                             *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+Você instalou o Supervisorio Autoclave, um programa que recebe
+os dados da Autoclave e os salva como arquivo de texto além de
+gerar um relatório com as horas de início de cada operação
+separando por tipos de programa.

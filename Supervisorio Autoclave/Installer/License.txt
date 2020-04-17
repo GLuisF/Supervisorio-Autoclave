@@ -1,0 +1,10 @@
+Copyright © 2020 FRASEL
+
+Este software é fornecido 'no estado em que se encontra', sem qualquer garantia expressa ou implícita. Em nenhum caso, os autores serão responsabilizados por quaisquer danos decorrentes do uso deste software.
+
+É concedida permissão a qualquer pessoa para usar este software para qualquer fim, incluindo aplicativos comerciais, e para alterá-lo e redistribuí-lo livremente, sujeito às seguintes restrições:
+
+1. A origem deste software não deve ser deturpada; você não deve alegar que escreveu o software original.
+    Se você usar este software em um produto, um reconhecimento na documentação do produto será apreciado, mas não é necessário.
+2. As versões alteradas devem ser claramente marcadas como tal e não devem ser deturpadas como sendo o software original.
+3. Este aviso não pode ser removido ou alterado de qualquer distribuição.
