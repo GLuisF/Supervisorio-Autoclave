@@ -1,6 +1,6 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 *                                                             *
-*         FRASEL Supervisorio Autoclave v1.2.1                *
+*         FRASEL Supervisorio Autoclave v1.2.2                *
 *                                                             *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
