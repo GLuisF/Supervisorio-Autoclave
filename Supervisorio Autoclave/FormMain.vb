@@ -4,9 +4,64 @@ Imports System.Text
 Public Class FormMain
     Dim ComunicacaoOK As Boolean = False
     Dim Ciclo As New clsCiclo
+    Dim FirstMinimized As Boolean = True
+
+    Private Sub FormMain_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+        'If Me.WindowState = FormWindowState.Minimized Then OcultarForm()
+    End Sub
+
+    Private Sub NotifyIcon1_MouseClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseClick
+        If e.Button = Windows.Forms.MouseButtons.Left Then
+            ReexibirForm()
+        End If
+    End Sub
+
+    Private Sub NotifReexibir_Click(sender As Object, e As EventArgs) Handles NotifReexibir.Click
+        ReexibirForm()
+    End Sub
+
+    Private Sub NotifyIcon1_BalloonTipClicked(sender As Object, e As EventArgs) Handles NotifyIcon1.BalloonTipClicked
+        ReexibirForm()
+    End Sub
+
+    Private Sub OcultarForm()
+        Try
+            Me.Visible = False
+            NotifyIcon1.Visible = True
+            If FirstMinimized Then
+                NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
+                NotifyIcon1.BalloonTipTitle = "Aplicação em segundo plano"
+                NotifyIcon1.BalloonTipText = "Clique para reexibir"
+                NotifyIcon1.ShowBalloonTip(500)
+                FirstMinimized = False
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub ReexibirForm()
+        Try
+            Me.Visible = True
+            Me.WindowState = FormWindowState.Normal
+            NotifyIcon1.Visible = False
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub FormMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If e.CloseReason = CloseReason.UserClosing And ComunicacaoOK Then
+            e.Cancel = True
+            OcultarForm()
+        End If
+    End Sub
+
+    Private Sub NotifSair_Click(sender As Object, e As EventArgs) Handles NotifSair.Click
+        End
+    End Sub
 
     Private Sub FormMain_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        'StatusResultado.Text = ""
         StatusPort.Text = My.Settings.PortaCOM
         StatusPort.Image = My.Resources.Disconnected
         If My.Settings.AutoConect Then
@@ -87,19 +142,40 @@ Public Class FormMain
                     Ciclo.Operacao(4).Fim = aFim.Last
                 End If
                 If linha.Contains("OPER.") Then
-                    If Directory.Exists(My.Settings.CaminhoRelatorios) Then
-                        Dim FileName As String = "PROGRAMA " & Ciclo.Programa & ".txt"
-                        SaveRelatorio(My.Settings.CaminhoRelatorios & "\" & FileName)
-                    End If
-                    If Directory.Exists(My.Settings.CaminhoLogs) Then
-                        Dim FileName As String = Ciclo.Programa & "-" & Ciclo.Numero & ".txt"
-                        SaveLog(My.Settings.CaminhoLogs & "\" & FileName)
-                        StatusResultado.Text = "Arquivo " & FileName & " salvo com sucesso"
-                        If My.Settings.LimparAoIniciar = False Then LimparForm()
-                        Ciclo.Resetar()
+                    If Ciclo.Numero = "" Then
+                        StatusResultado.Text = "Número do ciclo não recebido. Salvar Log manualmente"
+                        If Me.Visible = False Then
+                            NotifyIcon1.BalloonTipIcon = ToolTipIcon.Warning
+                            NotifyIcon1.BalloonTipTitle = StatusResultado.Text
+                            NotifyIcon1.BalloonTipText = "Clique para reexibir"
+                            NotifyIcon1.ShowBalloonTip(500)
+                        End If
                     Else
-                        MessageBox.Show("Pasta de Logs não existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        StatusResultado.Text = "Erro ao gerar o arquivo"
+                        If Directory.Exists(My.Settings.CaminhoRelatorios) And Directory.Exists(My.Settings.CaminhoLogs) Then
+                            Dim FileName As String = "PROGRAMA " & Ciclo.Programa & ".txt"
+                            SaveRelatorio(My.Settings.CaminhoRelatorios & "\" & FileName)
+                            FileName = Ciclo.Programa & "-" & Ciclo.Numero & ".txt"
+                            SaveLog(My.Settings.CaminhoLogs & "\" & FileName)
+                            StatusResultado.Text = "Arquivo " & FileName & " salvo com sucesso"
+                            If Me.Visible = False Then
+                                NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
+                                NotifyIcon1.BalloonTipTitle = StatusResultado.Text
+                                NotifyIcon1.BalloonTipText = "Clique para reexibir"
+                                NotifyIcon1.ShowBalloonTip(500)
+                            End If
+                            If My.Settings.LimparAoIniciar = False Then LimparForm()
+                            Ciclo.Resetar()
+                        Else
+                            StatusResultado.Text = "Erro ao gerar o arquivo"
+                            If Me.Visible = False Then
+                                NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
+                                NotifyIcon1.BalloonTipTitle = StatusResultado.Text
+                                NotifyIcon1.BalloonTipText = "Clique para reexibir"
+                                NotifyIcon1.ShowBalloonTip(500)
+                            Else
+                                MessageBox.Show("A pasta de Logs e/ou Relatórios não existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            End If
+                        End If
                     End If
                 End If
             End If
@@ -113,6 +189,7 @@ Public Class FormMain
         Else
             DesligarComunicacao()
         End If
+        RichTextBoxLog.Focus()
     End Sub
 
     Private Sub LigarComunicacao()
@@ -204,7 +281,7 @@ Public Class FormMain
         If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
             Dim SelectedFile As String = SaveFileDialog1.FileName
             SaveLog(SelectedFile)
-            StatusResultado.Text = "Arquivo " & SelectedFile & " salvo com sucesso"
+            StatusResultado.Text = "Arquivo " & SelectedFile.Split("\").Last & " salvo com sucesso"
             Dim FileName As String = "PROGRAMA " & Ciclo.Programa & ".txt"
             SaveRelatorio(My.Settings.CaminhoRelatorios & "\" & FileName)
         End If
@@ -266,14 +343,12 @@ Public Class FormMain
         End Sub
     End Class
 
-#If DEBUG Then
     Private Sub TextBoxCiclo_TextChanged(sender As Object, e As EventArgs) Handles TextBoxCiclo.TextChanged
         Ciclo.Numero = TextBoxCiclo.Text
     End Sub
     Private Sub TextBoxTipo_TextChanged(sender As Object, e As EventArgs) Handles TextBoxTipo.TextChanged
         Ciclo.Programa = Val(TextBoxTipo.Text)
     End Sub
-#End If
 
     Private Sub LimparForm()
         RichTextBoxLog.Text = ""
@@ -286,6 +361,7 @@ Public Class FormMain
     Private Sub ButtonLimpar_Click(sender As Object, e As EventArgs) Handles ButtonLimpar.Click
         LimparForm()
         Ciclo.Resetar()
+        StatusResultado.Text = ""
     End Sub
 
 End Class

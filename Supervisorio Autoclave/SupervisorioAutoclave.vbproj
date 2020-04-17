@@ -97,6 +97,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationEvents.vb" />
     <Compile Include="FormMain.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -183,8 +184,10 @@
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
-  </Target>
+  </Target>   -->
   <Target Name="AfterBuild">
+    <Copy SourceFiles="$(OUTDIR)\$(TargetFileName)" DestinationFiles="$(ProjectDir)Installer\$(TargetFileName)" />
+    <Message Text="------ Executavel salvo na pasta Installer ------" Importance="high" />
+    <Message Text="$(TargetName) -&gt; $(ProjectDir)Intaller\$(TargetFileName)" Importance="high" />
   </Target>
-  -->
 </Project>
