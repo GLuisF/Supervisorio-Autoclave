@@ -62,6 +62,11 @@ Public Class FormMain
     End Sub
 
     Private Sub FormMain_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        If My.Settings.UpgradeRequerid Then
+            My.Settings.Upgrade()
+            My.Settings.UpgradeRequerid = False
+            My.Settings.Save()
+        End If
         StatusPort.Text = My.Settings.PortaCOM
         StatusPort.Image = My.Resources.Disconnected
         If My.Settings.AutoConect Then
@@ -142,39 +147,34 @@ Public Class FormMain
                     Ciclo.Operacao(4).Fim = aFim.Last
                 End If
                 If linha.Contains("OPER.") Then
-                    If Ciclo.Numero = "" Then
-                        StatusResultado.Text = "Número do ciclo não recebido. Salvar Log manualmente"
-                        If Me.Visible = False Then
+                    If Directory.Exists(My.Settings.CaminhoRelatorios) And Directory.Exists(My.Settings.CaminhoLogs) Then
+                        If Ciclo.Numero = "" Then
+                            Ciclo.Numero = "XXXX"
                             NotifyIcon1.BalloonTipIcon = ToolTipIcon.Warning
+                        Else
+                            NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
+                        End If
+                        Dim FileName As String = "PROGRAMA " & Ciclo.Programa & ".txt"
+                        SaveRelatorio(My.Settings.CaminhoRelatorios & "\" & FileName)
+                        FileName = Ciclo.Programa & "-" & Ciclo.Numero & ".txt"
+                        SaveLog(My.Settings.CaminhoLogs & "\" & FileName)
+                        StatusResultado.Text = "Arquivo " & FileName & " salvo com sucesso"
+                        If Me.Visible = False Then
                             NotifyIcon1.BalloonTipTitle = StatusResultado.Text
                             NotifyIcon1.BalloonTipText = "Clique para reexibir"
                             NotifyIcon1.ShowBalloonTip(500)
                         End If
+                        If My.Settings.LimparAoIniciar = False Then LimparForm()
+                        Ciclo.Resetar()
                     Else
-                        If Directory.Exists(My.Settings.CaminhoRelatorios) And Directory.Exists(My.Settings.CaminhoLogs) Then
-                            Dim FileName As String = "PROGRAMA " & Ciclo.Programa & ".txt"
-                            SaveRelatorio(My.Settings.CaminhoRelatorios & "\" & FileName)
-                            FileName = Ciclo.Programa & "-" & Ciclo.Numero & ".txt"
-                            SaveLog(My.Settings.CaminhoLogs & "\" & FileName)
-                            StatusResultado.Text = "Arquivo " & FileName & " salvo com sucesso"
-                            If Me.Visible = False Then
-                                NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
-                                NotifyIcon1.BalloonTipTitle = StatusResultado.Text
-                                NotifyIcon1.BalloonTipText = "Clique para reexibir"
-                                NotifyIcon1.ShowBalloonTip(500)
-                            End If
-                            If My.Settings.LimparAoIniciar = False Then LimparForm()
-                            Ciclo.Resetar()
+                        StatusResultado.Text = "Erro ao gerar o arquivo"
+                        If Me.Visible = False Then
+                            NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
+                            NotifyIcon1.BalloonTipTitle = StatusResultado.Text
+                            NotifyIcon1.BalloonTipText = "Clique para reexibir"
+                            NotifyIcon1.ShowBalloonTip(500)
                         Else
-                            StatusResultado.Text = "Erro ao gerar o arquivo"
-                            If Me.Visible = False Then
-                                NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
-                                NotifyIcon1.BalloonTipTitle = StatusResultado.Text
-                                NotifyIcon1.BalloonTipText = "Clique para reexibir"
-                                NotifyIcon1.ShowBalloonTip(500)
-                            Else
-                                MessageBox.Show("A pasta de Logs e/ou Relatórios não existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                            End If
+                            MessageBox.Show("A pasta de Logs e/ou Relatórios não existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         End If
                     End If
                 End If
@@ -288,12 +288,16 @@ Public Class FormMain
     End Sub
 
     Private Sub SaveLog(ByVal FilePath As String)
-        Dim fs As StreamWriter = File.CreateText(FilePath)
-        Dim linha_log As String
-        For Each linha_log In RichTextBoxLog.Text.Split(vbLf)
-            fs.Write(linha_log & vbCrLf)
-        Next
-        fs.Close()
+        Try
+            Dim fs As StreamWriter = File.CreateText(FilePath)
+            Dim linha_log As String
+            For Each linha_log In RichTextBoxLog.Text.Split(vbLf)
+                fs.Write(linha_log & vbCrLf)
+            Next
+            fs.Close()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
     Private Sub SaveRelatorio(ByVal FilePath As String)

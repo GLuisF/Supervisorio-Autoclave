@@ -1,4 +1,5 @@
-﻿Namespace My
+﻿Imports System.Collections.ObjectModel
+Namespace My
 
     ' The following events are available for MyApplication:
     ' 
@@ -23,6 +24,12 @@
 
             End If
         End Sub
+
+        Protected Overrides Function OnInitialize(commandLineArgs As ReadOnlyCollection(Of String)) As Boolean
+            Me.MinimumSplashScreenDisplayTime = 4000
+            Return MyBase.OnInitialize(commandLineArgs)
+        End Function
+
     End Class
 
 

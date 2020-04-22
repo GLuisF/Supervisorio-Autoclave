@@ -113,6 +113,18 @@ Namespace My
                 Me("LimparAoIniciar") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property UpgradeRequerid() As Boolean
+            Get
+                Return CType(Me("UpgradeRequerid"),Boolean)
+            End Get
+            Set
+                Me("UpgradeRequerid") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
