@@ -35,6 +35,11 @@ Partial Class Setups
         Me.Label3 = New System.Windows.Forms.Label()
         Me.CheckBoxAutoConect = New System.Windows.Forms.CheckBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.RadioButtonInicio = New System.Windows.Forms.RadioButton()
+        Me.RadioButtonFim = New System.Windows.Forms.RadioButton()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ButtonSelLogs
@@ -43,8 +48,7 @@ Partial Class Setups
         Me.ButtonSelLogs.Margin = New System.Windows.Forms.Padding(0)
         Me.ButtonSelLogs.Name = "ButtonSelLogs"
         Me.ButtonSelLogs.Size = New System.Drawing.Size(29, 21)
-        Me.ButtonSelLogs.TabIndex = 7
-        Me.ButtonSelLogs.TabStop = False
+        Me.ButtonSelLogs.TabIndex = 1
         Me.ButtonSelLogs.Text = "..."
         Me.ButtonSelLogs.UseVisualStyleBackColor = True
         '
@@ -54,7 +58,7 @@ Partial Class Setups
         Me.TextBoxLogs.Location = New System.Drawing.Point(15, 37)
         Me.TextBoxLogs.Name = "TextBoxLogs"
         Me.TextBoxLogs.Size = New System.Drawing.Size(561, 20)
-        Me.TextBoxLogs.TabIndex = 1
+        Me.TextBoxLogs.TabIndex = 0
         '
         'Label1
         '
@@ -67,19 +71,20 @@ Partial Class Setups
         '
         'ButtonOK
         '
-        Me.ButtonOK.Location = New System.Drawing.Point(505, 129)
+        Me.ButtonOK.Location = New System.Drawing.Point(505, 153)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(35, 23)
-        Me.ButtonOK.TabIndex = 5
+        Me.ButtonOK.TabIndex = 7
         Me.ButtonOK.Text = "OK"
         Me.ButtonOK.UseVisualStyleBackColor = True
         '
         'ButtonCancelar
         '
-        Me.ButtonCancelar.Location = New System.Drawing.Point(546, 129)
+        Me.ButtonCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.ButtonCancelar.Location = New System.Drawing.Point(546, 153)
         Me.ButtonCancelar.Name = "ButtonCancelar"
         Me.ButtonCancelar.Size = New System.Drawing.Size(62, 23)
-        Me.ButtonCancelar.TabIndex = 6
+        Me.ButtonCancelar.TabIndex = 8
         Me.ButtonCancelar.Text = "Cancelar"
         Me.ButtonCancelar.UseVisualStyleBackColor = True
         '
@@ -98,8 +103,7 @@ Partial Class Setups
         Me.ButtonSelRelatorios.Margin = New System.Windows.Forms.Padding(0)
         Me.ButtonSelRelatorios.Name = "ButtonSelRelatorios"
         Me.ButtonSelRelatorios.Size = New System.Drawing.Size(29, 21)
-        Me.ButtonSelRelatorios.TabIndex = 7
-        Me.ButtonSelRelatorios.TabStop = False
+        Me.ButtonSelRelatorios.TabIndex = 3
         Me.ButtonSelRelatorios.Text = "..."
         Me.ButtonSelRelatorios.UseVisualStyleBackColor = True
         '
@@ -118,7 +122,7 @@ Partial Class Setups
         Me.ComboBoxPortas.Name = "ComboBoxPortas"
         Me.ComboBoxPortas.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.ComboBoxPortas.Size = New System.Drawing.Size(84, 21)
-        Me.ComboBoxPortas.TabIndex = 3
+        Me.ComboBoxPortas.TabIndex = 4
         '
         'Label3
         '
@@ -135,15 +139,59 @@ Partial Class Setups
         Me.CheckBoxAutoConect.Location = New System.Drawing.Point(229, 107)
         Me.CheckBoxAutoConect.Name = "CheckBoxAutoConect"
         Me.CheckBoxAutoConect.Size = New System.Drawing.Size(252, 17)
-        Me.CheckBoxAutoConect.TabIndex = 4
+        Me.CheckBoxAutoConect.TabIndex = 5
         Me.CheckBoxAutoConect.Text = "Conectar automaticamente ao ligar o programa?"
         Me.CheckBoxAutoConect.UseVisualStyleBackColor = True
         '
+        'RadioButtonInicio
+        '
+        Me.RadioButtonInicio.AutoSize = True
+        Me.RadioButtonInicio.Location = New System.Drawing.Point(3, 3)
+        Me.RadioButtonInicio.Name = "RadioButtonInicio"
+        Me.RadioButtonInicio.Size = New System.Drawing.Size(118, 17)
+        Me.RadioButtonInicio.TabIndex = 0
+        Me.RadioButtonInicio.TabStop = True
+        Me.RadioButtonInicio.Text = "começar novo ciclo"
+        Me.RadioButtonInicio.UseVisualStyleBackColor = True
+        '
+        'RadioButtonFim
+        '
+        Me.RadioButtonFim.AutoSize = True
+        Me.RadioButtonFim.Location = New System.Drawing.Point(127, 3)
+        Me.RadioButtonFim.Name = "RadioButtonFim"
+        Me.RadioButtonFim.Size = New System.Drawing.Size(113, 17)
+        Me.RadioButtonFim.TabIndex = 1
+        Me.RadioButtonFim.TabStop = True
+        Me.RadioButtonFim.Text = "terminar ciclo atual"
+        Me.RadioButtonFim.UseVisualStyleBackColor = True
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(12, 136)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(73, 13)
+        Me.Label4.TabIndex = 27
+        Me.Label4.Text = "Limpar tela ao"
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.RadioButtonFim)
+        Me.Panel1.Controls.Add(Me.RadioButtonInicio)
+        Me.Panel1.Location = New System.Drawing.Point(84, 131)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(241, 27)
+        Me.Panel1.TabIndex = 6
+        '
         'Setups
         '
+        Me.AcceptButton = Me.ButtonOK
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(617, 160)
+        Me.CancelButton = Me.ButtonCancelar
+        Me.ClientSize = New System.Drawing.Size(624, 188)
+        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.CheckBoxAutoConect)
         Me.Controls.Add(Me.ComboBoxPortas)
         Me.Controls.Add(Me.Label3)
@@ -155,10 +203,18 @@ Partial Class Setups
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ButtonSelLogs)
         Me.Controls.Add(Me.TextBoxLogs)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "Setups"
+        Me.ShowInTaskbar = False
+        Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Configurações"
+        Me.TopMost = True
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -175,4 +231,8 @@ Partial Class Setups
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents CheckBoxAutoConect As System.Windows.Forms.CheckBox
     Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
+    Friend WithEvents RadioButtonInicio As System.Windows.Forms.RadioButton
+    Friend WithEvents RadioButtonFim As System.Windows.Forms.RadioButton
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents Panel1 As System.Windows.Forms.Panel
 End Class

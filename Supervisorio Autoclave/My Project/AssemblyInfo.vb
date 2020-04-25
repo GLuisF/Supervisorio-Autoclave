@@ -1,4 +1,6 @@
-﻿Imports System
+﻿Imports System.Resources
+
+Imports System
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
@@ -8,14 +10,14 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Supervisorio Autoclave")> 
-<Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("")> 
+<Assembly: AssemblyTitle("Supervisório Autoclave")> 
+<Assembly: AssemblyDescription("Supervisório Autoclave")> 
+<Assembly: AssemblyCompany("FRASEL")> 
 <Assembly: AssemblyProduct("Supervisorio Autoclave")> 
-<Assembly: AssemblyCopyright("Copyright ©  2020")> 
-<Assembly: AssemblyTrademark("")> 
+<Assembly: AssemblyCopyright("Copyright © 2020 FRASEL")> 
+<Assembly: AssemblyTrademark("FRASEL")> 
 
-<Assembly: ComVisible(False)>
+<Assembly: ComVisible(False)> 
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
 <Assembly: Guid("01115444-9fd1-4a5e-9fb9-84630ffb854a")> 
@@ -31,5 +33,7 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.1.0.1")> 
-<Assembly: AssemblyFileVersion("1.1.0.1")> 
+<Assembly: AssemblyVersion("1.2.3.0")> 
+<Assembly: AssemblyFileVersion("1.2.3.0")> 
+
+<Assembly: NeutralResourcesLanguageAttribute("pt-BR")> 

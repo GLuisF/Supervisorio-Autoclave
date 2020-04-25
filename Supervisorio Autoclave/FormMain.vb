@@ -4,8 +4,71 @@ Imports System.Text
 Public Class FormMain
     Dim ComunicacaoOK As Boolean = False
     Dim Ciclo As New clsCiclo
+    Dim FirstMinimized As Boolean = True
+
+    Private Sub FormMain_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+        'If Me.WindowState = FormWindowState.Minimized Then OcultarForm()
+    End Sub
+
+    Private Sub NotifyIcon1_MouseClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseClick
+        If e.Button = Windows.Forms.MouseButtons.Left Then
+            ReexibirForm()
+        End If
+    End Sub
+
+    Private Sub NotifReexibir_Click(sender As Object, e As EventArgs) Handles NotifReexibir.Click
+        ReexibirForm()
+    End Sub
+
+    Private Sub NotifyIcon1_BalloonTipClicked(sender As Object, e As EventArgs) Handles NotifyIcon1.BalloonTipClicked
+        ReexibirForm()
+    End Sub
+
+    Private Sub OcultarForm()
+        Try
+            Me.Visible = False
+            NotifyIcon1.Visible = True
+            If FirstMinimized Then
+                NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
+                NotifyIcon1.BalloonTipTitle = "Aplicação em segundo plano"
+                NotifyIcon1.BalloonTipText = "Clique para reexibir"
+                NotifyIcon1.ShowBalloonTip(500)
+                FirstMinimized = False
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub ReexibirForm()
+        Try
+            Me.Visible = True
+            Me.WindowState = FormWindowState.Normal
+            NotifyIcon1.Visible = False
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub FormMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If e.CloseReason = CloseReason.UserClosing And ComunicacaoOK Then
+            e.Cancel = True
+            OcultarForm()
+        End If
+    End Sub
+
+    Private Sub NotifSair_Click(sender As Object, e As EventArgs) Handles NotifSair.Click
+        End
+    End Sub
 
     Private Sub FormMain_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        If My.Settings.UpgradeRequerid Then
+            My.Settings.Upgrade()
+            My.Settings.UpgradeRequerid = False
+            My.Settings.Save()
+        End If
+        StatusPort.Text = My.Settings.PortaCOM
+        StatusPort.Image = My.Resources.Disconnected
         If My.Settings.AutoConect Then
             LigarComunicacao()
         End If
@@ -27,6 +90,7 @@ Public Class FormMain
     Sub TratamentoSTR(ByVal meustring As String)
         If Not Ciclo.Iniciado Then
             Ciclo.Iniciado = True
+            If My.Settings.LimparAoIniciar Then LimparForm()
         End If
         RichTextBoxLog.AppendText(meustring)
         RichTextBoxLog.ScrollToCaret()
@@ -83,35 +147,49 @@ Public Class FormMain
                     Ciclo.Operacao(4).Fim = aFim.Last
                 End If
                 If linha.Contains("OPER.") Then
-                    If Directory.Exists(My.Settings.CaminhoRelatorios) Then
+                    If Directory.Exists(My.Settings.CaminhoRelatorios) And Directory.Exists(My.Settings.CaminhoLogs) Then
+                        If Ciclo.Numero = "" Then
+                            Ciclo.Numero = "XXXX"
+                            NotifyIcon1.BalloonTipIcon = ToolTipIcon.Warning
+                        Else
+                            NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
+                        End If
                         Dim FileName As String = "PROGRAMA " & Ciclo.Programa & ".txt"
                         SaveRelatorio(My.Settings.CaminhoRelatorios & "\" & FileName)
-                    End If
-                    If Directory.Exists(My.Settings.CaminhoLogs) Then
-                        Dim FileName As String = Ciclo.Programa & "-" & Ciclo.Numero & ".txt"
+                        FileName = Ciclo.Programa & "-" & Ciclo.Numero & ".txt"
                         SaveLog(My.Settings.CaminhoLogs & "\" & FileName)
-                        TextBoxResultado.Text = "Arquivo " & FileName & " salvo com sucesso"
-                        RichTextBoxLog.Text = ""
-                        TextBoxCiclo.Text = ""
-                        TextBoxOperacao.Text = ""
-                        TextBoxTipo.Text = ""
-                        TextBoxInicio.Text = ""
+                        StatusResultado.Text = "Arquivo " & FileName & " salvo com sucesso"
+                        If Me.Visible = False Then
+                            NotifyIcon1.BalloonTipTitle = StatusResultado.Text
+                            NotifyIcon1.BalloonTipText = "Clique para reexibir"
+                            NotifyIcon1.ShowBalloonTip(500)
+                        End If
+                        If My.Settings.LimparAoIniciar = False Then LimparForm()
                         Ciclo.Resetar()
                     Else
-                        MessageBox.Show("Pasta de Logs não existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        TextBoxResultado.Text = "Erro ao gerar o arquivo"
+                        StatusResultado.Text = "Erro ao gerar o arquivo"
+                        If Me.Visible = False Then
+                            NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
+                            NotifyIcon1.BalloonTipTitle = StatusResultado.Text
+                            NotifyIcon1.BalloonTipText = "Clique para reexibir"
+                            NotifyIcon1.ShowBalloonTip(500)
+                        Else
+                            MessageBox.Show("A pasta de Logs e/ou Relatórios não existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        End If
                     End If
                 End If
             End If
         Next
     End Sub
 
-    Private Sub ButtonOnOff_Click(sender As Object, e As EventArgs) Handles ButtonOnOff.Click
-        If ButtonOnOff.Text = "Ligar" Then
+    Dim Ligado As Boolean = False
+    Private Sub ButtonLigaDesliga_Click(sender As Object, e As EventArgs) Handles ButtonLigaDesliga.Click
+        If Not ComunicacaoOK Then
             LigarComunicacao()
         Else
             DesligarComunicacao()
         End If
+        RichTextBoxLog.Focus()
     End Sub
 
     Private Sub LigarComunicacao()
@@ -125,20 +203,26 @@ Public Class FormMain
             MessageBox.Show("Erro ao tentar abrir a porta " & My.Settings.PortaCOM, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
         If Ligar Then
-            ButtonOnOff.Text = "Desligar"
+            ButtonLigaDesliga.BackgroundImage = My.Resources.Ligado
+            LabelLigaDesliga.Text = "Ligado"
             ComunicacaoOK = True
-            TextBoxResultado.Text = "Porta " & My.Settings.PortaCOM & " aberta com sucesso"
+            StatusResultado.Text = "Porta " & My.Settings.PortaCOM & " conectada com sucesso"
+            StatusPort.Image = My.Resources.Connected
+
         Else
-            ButtonOnOff.Text = "Ligar"
+            ButtonLigaDesliga.BackgroundImage = My.Resources.Desligado
+            LabelLigaDesliga.Text = "Desligado"
             ComunicacaoOK = False
         End If
     End Sub
 
     Private Sub DesligarComunicacao()
+        ButtonLigaDesliga.BackgroundImage = My.Resources.Desligado
+        LabelLigaDesliga.Text = "Desligado"
         ComunicacaoOK = False
         ClosePort()
-        ButtonOnOff.Text = "Ligar"
-        TextBoxResultado.Text = ""
+        StatusResultado.Text = "Porta " & My.Settings.PortaCOM & " desconectada"
+        StatusPort.Image = My.Resources.Disconnected
     End Sub
 
     Private Function OpenPort() As Boolean
@@ -172,7 +256,7 @@ Public Class FormMain
 
     Private Sub MenuSobre_Click(sender As Object, e As EventArgs) Handles MenuSobre.Click
         MessageBox.Show("Supervisório Autoclave v" & My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor _
-                        & vbNewLine & "Desenvolvido por André e Giovani", "Supervisorio Autoclave")
+                        & "." & My.Application.Info.Version.Build & vbNewLine & "Desenvolvido por André e Giovani", "Supervisorio Autoclave")
     End Sub
 
     Private Function VerificarCaminhos() As Boolean
@@ -197,19 +281,23 @@ Public Class FormMain
         If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
             Dim SelectedFile As String = SaveFileDialog1.FileName
             SaveLog(SelectedFile)
-            TextBoxResultado.Text = "Arquivo " & SelectedFile & " salvo com sucesso"
+            StatusResultado.Text = "Arquivo " & SelectedFile.Split("\").Last & " salvo com sucesso"
             Dim FileName As String = "PROGRAMA " & Ciclo.Programa & ".txt"
             SaveRelatorio(My.Settings.CaminhoRelatorios & "\" & FileName)
         End If
     End Sub
 
     Private Sub SaveLog(ByVal FilePath As String)
-        Dim fs As StreamWriter = File.CreateText(FilePath)
-        Dim linha_log As String
-        For Each linha_log In RichTextBoxLog.Text.Split(vbLf)
-            fs.Write(linha_log & vbCrLf)
-        Next
-        fs.Close()
+        Try
+            Dim fs As StreamWriter = File.CreateText(FilePath)
+            Dim linha_log As String
+            For Each linha_log In RichTextBoxLog.Text.Split(vbLf)
+                fs.Write(linha_log & vbCrLf)
+            Next
+            fs.Close()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
     Private Sub SaveRelatorio(ByVal FilePath As String)
@@ -259,12 +347,25 @@ Public Class FormMain
         End Sub
     End Class
 
-#If DEBUG Then
     Private Sub TextBoxCiclo_TextChanged(sender As Object, e As EventArgs) Handles TextBoxCiclo.TextChanged
         Ciclo.Numero = TextBoxCiclo.Text
     End Sub
     Private Sub TextBoxTipo_TextChanged(sender As Object, e As EventArgs) Handles TextBoxTipo.TextChanged
         Ciclo.Programa = Val(TextBoxTipo.Text)
     End Sub
-#End If
+
+    Private Sub LimparForm()
+        RichTextBoxLog.Text = ""
+        TextBoxCiclo.Text = ""
+        TextBoxOperacao.Text = ""
+        TextBoxTipo.Text = ""
+        TextBoxInicio.Text = ""
+    End Sub
+
+    Private Sub ButtonLimpar_Click(sender As Object, e As EventArgs) Handles ButtonLimpar.Click
+        LimparForm()
+        Ciclo.Resetar()
+        StatusResultado.Text = ""
+    End Sub
+
 End Class
