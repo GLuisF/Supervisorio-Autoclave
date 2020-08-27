@@ -67,10 +67,10 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>13339100CB6E68E974E738564C9E923311CE5003</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>9464E3179473004D6C3B9DAC25475C51E525A454</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>SupervisorioAutoclave_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>SupervisorioAutoclave_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
