@@ -1,4 +1,4 @@
-Copyright © 2020 FRASEL
+Copyright © 2021 FRASEL
 
 Este software é fornecido 'no estado em que se encontra', sem qualquer garantia expressa ou implícita. Em nenhum caso, os autores serão responsabilizados por quaisquer danos decorrentes do uso deste software.
 
