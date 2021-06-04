@@ -76,7 +76,7 @@ void loop()
   Serial.print ("FIM DE CICLO                  18:14:02\n");
   Serial.print (" \n");
   Serial.print ("---------------------------------------\n");
-  Serial.print ("DURACAO TOTAL:    02:44:57\n");
+  Serial.print ("DURACAO TOTAL:    02:42:57\n");
   Serial.print (" \n");
   Serial.print (" \n");
   Serial.print ("OPER._____________________DAVID GILMOUR\n");

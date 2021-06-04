@@ -368,13 +368,4 @@ Public Class FormMain
         StatusResultado.Text = ""
     End Sub
 
-    Private Sub frmProgramma_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-
-        'If MessageBox.Show("Você tem certeza que deseja sair?", "Close", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-        'ClosePort()
-        'Else
-        'e.Cancel = True
-        'End If
-    End Sub
-
 End Class
