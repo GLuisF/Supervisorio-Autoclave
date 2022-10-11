@@ -10,6 +10,7 @@ int  EEPROMReadInt(int address);
 void setup() {
   Serial.begin(9600);
   randomSeed(analogRead(0));
+  //EEPROMWriteInt(0, 0);
 }
 
 void loop()
@@ -18,9 +19,9 @@ void loop()
   sprintf(strCiclo, "%04u",intCiclo);
   Serial.print (" \n");
   Serial.print ("---------------------------------------\n");
-  Serial.print ("  =    BAUMER    =    -----\n");
+  Serial.print ("-----------   =    BAUMER    =    -----\n");
   Serial.print (" \n");
-  Serial.print (" ÛÛ  REALIZAR MANUTENCAO PREVENTIVA ÛÛ\n");
+  Serial.print (" !!  REALIZAR MANUTENCAO PREVENTIVA !!\n");
   Serial.print ("\n");
   Serial.print ("DATA: 07/04/20    HORA: 15:26:48       \n");
   sprintf(strCiclo, "CICLO Nr:     %04u                     \n",intCiclo);
@@ -28,13 +29,13 @@ void loop()
   Serial.print ("COD. CARGA: 000483                     \n");
   Serial.print ("---------------------------------------\n");
   Serial.print ("PROGRAMA  Nr: 0"+String(random(1,6))+"  - INSTRUMENTAIS        \n");
-  Serial.print ("TEMPERATURA                 134.0 øC   \n");
+  Serial.print ("TEMPERATURA                 134.0 °C   \n");
   Serial.print ("TEMPO ESTERILIZACAO         0004 min   \n");
   Serial.print ("PULSOS DE VACUO               04       \n");
   Serial.print ("TEMPO SECAGEM               0030 min   \n");
   Serial.print ("---------------------------------------\n");
   Serial.print ("  HORA       PCI     TCI     TPR   TTS \n");
-  Serial.print ("             Kg      øC      øC    øC  \n");
+  Serial.print ("             Kg      °C      °C    °C  \n");
   Serial.print (" \n");
   Serial.print ("---------------------------------------\n");
   Serial.print ("OPERACAO: 1 - PULSOS VAC/VAP  15:27:01 \n");
